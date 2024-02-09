@@ -17,8 +17,8 @@ public class ListNode {
 
 class Solution {
     ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode l3 // ListNode to store the answer
-        ListNode head = l3;
+        ListNode l3 = null; // Initialize l3 with null
+        ListNode head = l3; // Store the head of the list
         int carry = 0;
         int totalDigits = 0;
         while (l1 != null && l2 != null) {
