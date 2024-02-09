@@ -1,4 +1,3 @@
-
 public class ListNode {
     int val;
     ListNode next;
@@ -17,13 +16,46 @@ public class ListNode {
 }
 
 class Solution {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        // Find how many digits first num is
-        int digits = 0;
-        ListNode curr = l1;
-        while (curr.next != null) {
-            digits++;
-            curr = curr.next;
+    ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode l3 // ListNode to store the answer
+        ListNode head = l3;
+        int carry = 0;
+        int totalDigits = 0;
+        while (l1 != null && l2 != null) {
+            l3 = new ListNode(l1.val + l2.val + carry);
+            carry = 0; // Reset carry
+            while (l3.val > 9) { // Since a ListNode can only store digits 0 - 9
+                l3.val = l3.val - 10;
+                carry++;
+            }
+            // l3.val is now calculated, and so is the carry.
+            l1 = l1.next;
+            l2 = l2.next;
+            l3 = l3.next; // might need to create a new node.
+
+            totalDigits++;
         }
+        while (l1 != null) {
+            l3.val = l1.val + carry;
+            carry = 0;
+            l1 = l1.next;
+            l3 = l3.next;
+            totalDigits++;
+        }
+        while (l2 != null) {
+            l3.val = l2.val + carry;
+            carry = 0;
+            l2 = l2.next;
+            l3 = l3.next;
+            totalDigits++;
+        }
+        ListNode curr = head;
+        System.out.print("[");
+        while (curr != null) {
+            System.out.print(curr.val + ",");
+        }
+        System.out.print("]");
+
+        return l3;
     }
 }
