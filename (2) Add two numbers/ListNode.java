@@ -25,18 +25,15 @@ class Solution {
                 carry =  digitSum / 10; // int devision
                 digitSum = digitSum % 10; // modulo
             }
-
-            if (l1.next != null) {
-                
+            current.val = digitSum;
+            if (l1.next == null && l2.next == null) {
+                break;
             }
             nextNode = new ListNode();
-            current.val = digitSum;
             current.next = nextNode;
+            current = nextNode;
             l1 = l1.next; // Advance nodes
             l2 = l2.next;
-            if (l1 != null && l2 != null) {
-            current = nextNode;
-            }
         }
 
 
@@ -48,8 +45,9 @@ class Solution {
             addSingleNode(l2.val);
             l2 = l2.next;
         }
-
-        return sum;
+        ListNode reverseSum = sum;
+        clearVars();
+        return reverseSum;
 
     }
 
@@ -64,5 +62,13 @@ class Solution {
             nextNode = new ListNode(carry); 
             current = new ListNode(digitSum, nextNode);
             current = nextNode;   
+    }
+
+    public static void clearVars(){
+        current = new ListNode(0);
+        sum = current; // sum is the head of the list
+        nextNode = null;
+        digitSum = 0;
+        carry = 0;
     }
 }
