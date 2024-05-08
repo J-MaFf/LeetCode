@@ -16,6 +16,16 @@ public class SolutionTest {
             System.out.println("Test case 1 passed");
         } else {
             System.out.println("Test case 1 failed");
+
+            System.out.print("Expected: ");
+            for (ListNode node = expected; node != null; node = node.next) {
+                System.out.print(node.val);
+            }
+            System.out.print("\nResult: ");
+            for (ListNode node = result; node != null; node = node.next) {
+                System.out.print(node.val);
+            }
+            System.out.println();
         }
 
         // Test case 2

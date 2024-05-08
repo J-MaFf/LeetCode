@@ -15,6 +15,7 @@ class Solution {
     static int carry;
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode reverseSum = sum;
         while (l1 != null && l2 != null) { // While l1 and l2 have more nodes
 
             // Numbers are in reverse
@@ -35,33 +36,36 @@ class Solution {
             l1 = l1.next; // Advance nodes
             l2 = l2.next;
         }
-
-
+        clearVars();
         while (l1 != null) {
-            addSingleNode(l1.val);
+            addSingleNode(l1);
             l1 = l1.next;
         }
+        clearVars();
         while (l2 != null) {
-            addSingleNode(l2.val);
+            addSingleNode(l2);
             l2 = l2.next;
         }
-        ListNode reverseSum = sum;
         clearVars();
         return reverseSum;
 
     }
 
-    public static void addSingleNode(int val){
-            digitSum = val + current.val;
+    public static void addSingleNode(ListNode node){
+            digitSum = node.val + carry;
             carry = 0;
             if (digitSum > 9) {
                 // Must carry over to next node
                 carry =  digitSum / 10; // int devision
                 digitSum = digitSum % 10; // modulo
             }
-            nextNode = new ListNode(carry); 
-            current = new ListNode(digitSum, nextNode);
-            current = nextNode;   
+            current.val = digitSum;
+            if (node.next == null) {
+                return;
+            }
+            nextNode = new ListNode();
+            current.next = nextNode;
+            current = nextNode;
     }
 
     public static void clearVars(){
