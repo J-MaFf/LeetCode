@@ -1,3 +1,4 @@
+
 public class ListNode {
     int val;
     ListNode next;
@@ -16,46 +17,68 @@ public class ListNode {
 }
 
 class Solution {
-    ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode l3 = null; // Initialize l3 with null
-        ListNode head = l3; // Store the head of the list
-        int carry = 0;
-        int totalDigits = 0;
-        while (l1 != null && l2 != null) {
-            l3 = new ListNode(l1.val + l2.val + carry);
-            carry = 0; // Reset carry
-            while (l3.val > 9) { // Since a ListNode can only store digits 0 - 9
-                l3.val = l3.val - 10;
-                carry++;
-            }
-            // l3.val is now calculated, and so is the carry.
-            l1 = l1.next;
-            l2 = l2.next;
-            l3 = l3.next; // might need to create a new node.
 
-            totalDigits++;
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode current = new ListNode(0);
+        ListNode sum = current; // sum is the head of the list
+        ListNode nextNode;
+        int digitSum;
+        int carry = 0;
+        ListNode reverseSum = sum;
+        while (l1 != null && l2 != null) { // While l1 and l2 have more nodes
+
+            // Numbers are in reverse
+            digitSum = l1.val + l2.val + carry;
+            carry = 0;
+            if (digitSum > 9) {
+                // Must carry over to next node
+                carry = digitSum / 10; // int devision
+                digitSum = digitSum % 10; // modulo
+            }
+            current.val = digitSum;
+            if (l1.next == null && l2.next == null) {
+                l1 = l1.next; // Advance nodes
+                l2 = l2.next;
+                break;
+
+            }
+            nextNode = new ListNode();
+            current.next = nextNode;
+            current = nextNode;
+            l1 = l1.next; // Advance nodes
+            l2 = l2.next;
         }
         while (l1 != null) {
-            l3.val = l1.val + carry;
-            carry = 0;
+            addSingleNode(l1, carry, current);
+            current = current.next;
             l1 = l1.next;
-            l3 = l3.next;
-            totalDigits++;
         }
         while (l2 != null) {
-            l3.val = l2.val + carry;
-            carry = 0;
+            addSingleNode(l2, carry, current);
+            current = current.next;
             l2 = l2.next;
-            l3 = l3.next;
-            totalDigits++;
         }
-        ListNode curr = head;
-        System.out.print("[");
-        while (curr != null) {
-            System.out.print(curr.val + ",");
-        }
-        System.out.print("]");
+        return reverseSum;
 
-        return l3;
     }
+
+    public static ListNode addSingleNode(ListNode node, int carry, ListNode current) {
+        int digitSum = node.val + carry;
+        carry = 0;
+        if (digitSum > 9) {
+            // Must carry over to next node
+            carry = digitSum / 10; // int devision
+            digitSum = digitSum % 10; // modulo
+        }
+        current.val = digitSum;
+        if (node.next == null) {
+            if (carry > 0) {
+                current.next = new ListNode(carry);
+            }
+            return current;
+        }
+        current.next = new ListNode();
+        return current.next;
+    }
+
 }
