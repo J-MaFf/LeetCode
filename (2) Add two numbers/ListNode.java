@@ -50,17 +50,19 @@ class Solution {
         }
         while (l1 != null) {
             addSingleNode(l1, carry, current);
+            current = current.next;
             l1 = l1.next;
         }
         while (l2 != null) {
             addSingleNode(l2, carry, current);
+            current = current.next;
             l2 = l2.next;
         }
         return reverseSum;
 
     }
 
-    public static void addSingleNode(ListNode node, int carry, ListNode current) {
+    public static ListNode addSingleNode(ListNode node, int carry, ListNode current) {
         int digitSum = node.val + carry;
         carry = 0;
         if (digitSum > 9) {
@@ -70,10 +72,13 @@ class Solution {
         }
         current.val = digitSum;
         if (node.next == null) {
-            return;
+            if (carry > 0) {
+                current.next = new ListNode(carry);
+            }
+            return current;
         }
         current.next = new ListNode();
-        current = current.next;
+        return current.next;
     }
 
 }
