@@ -51,14 +51,21 @@ public class SolutionTest {
         expected = new ListNode(8, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(0, new ListNode(0, new ListNode(0, new ListNode(1))))))));
         result = new Solution().addTwoNumbers(l1, l2);
 
-        if (expected.val == result.val && expected.next.val == result.next.val && expected.next.next.val == result.next.next.val && expected.next.next.next.val == result.next.next.next.val && expected.next.next.next.next.val == result.next.next.next.next.val && expected.next.next.next.next.next.val == result.next.next.next.next.next.val && expected.next.next.next.next.next.next.val == result.next.next.next.next.next.next.val && expected.next.next.next.next.next.next.next.val == result.next.next.next.next.next.next.next.val) {
-            System.out.println("Test case 3 passed");
-        } else {
-            System.out.println("Test case 3 failed");
-            System.out.print("Expected: " + expected.val + "\t" + "Result: " );
-            for (ListNode node = result; node != null; node = node.next) {
-                System.out.print(node.val);
+        while (expected != null && result != null) {
+            if (expected.val != result.val) {
+                System.out.println("Test case 3 failed");
+                System.out.print("Expected: " + expected.val + "\t" + "Result: " + result.val);
+                return;
             }
+            expected = expected.next;
+            result = result.next;
+        }
+        
+        if (expected != null || result != null) {
+            System.out.println("Test case 3 failed");
+            System.out.print("Lists have different lengths");
+        } else {
+            System.out.println("Test case 3 passed");
         }
 
     }
