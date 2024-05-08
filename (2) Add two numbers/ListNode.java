@@ -18,20 +18,27 @@ class Solution {
         while (l1 != null && l2 != null) { // While l1 and l2 have more nodes
 
             // Numbers are in reverse
-            digitSum = l1.val + l2.val + current.val;
+            digitSum = l1.val + l2.val + carry;
             carry = 0;
             if (digitSum > 9){
                 // Must carry over to next node
                 carry =  digitSum / 10; // int devision
                 digitSum = digitSum % 10; // modulo
             }
-            nextNode = new ListNode(carry);
+
+            if (l1.next != null) {
+                
+            }
+            nextNode = new ListNode();
             current.val = digitSum;
             current.next = nextNode;
-            current = nextNode;
             l1 = l1.next; // Advance nodes
             l2 = l2.next;
+            if (l1 != null && l2 != null) {
+            current = nextNode;
+            }
         }
+
 
         while (l1 != null) {
             addSingleNode(l1.val);
