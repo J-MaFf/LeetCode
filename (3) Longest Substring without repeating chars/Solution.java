@@ -29,6 +29,7 @@ Constraints:
 
  */
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class provides a solution for finding the length of the longest
@@ -52,35 +53,27 @@ class Solution {
      * @return the length of the longest substring without repeating characters
      */
     public int lengthOfLongestSubstring(String s) {
-        HashSet<Character> charSet = new HashSet<>();
-        HashSet<Character> longest = new HashSet<>();
-        String lcs = "";
-        for (int i = 0; i < s.length(); i++) {
-            if (charSet.add(s.charAt(i))) { // add unique char to the hash set and the lcs
-                lcs += s.charAt(i);
-            } else if (lcs.length() >= longest.size()) { // If longer subsequence found
-                longest = new HashSet<>(charSet);
-                lcs = "" + s.charAt(i); // Reset lcs to the current character
-                charSet.clear();
-                charSet.add(s.charAt(i));
-            } else {
-                lcs = "" + s.charAt(i);
-                charSet.clear();
-                charSet.add(s.charAt(i));
-            }
-            System.out.printf("Current lcs on iteration %d is %s%n", i, lcs); // Print current lcs for each iteration
-        }
-        if (longest.size() == 0) { // If longest was never updated (Happens when longest substring is whole string)
-            longest = new HashSet<>(charSet);
-        }
-        System.out.printf("The longest substring is %s with length %d.%n", longest.toString(), longest.size());
+        Set<Character> set = new HashSet<Character>();
+        int left = 0, right = 0, maxLength = 0;
 
-        return Math.max(longest.size(), charSet.size());
+        while (left < s.length() && right < s.length()) {
+            if (!set.contains(s.charAt(right))) { // char is unique
+                set.add(s.charAt(right));
+                right++;
+            } else {
+                set.remove(s.charAt(left));
+                left++;
+            }
+            if (right - left > maxLength) {
+                maxLength = right - left;
+            }
+        }
+        return maxLength;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String s = "dvdf";
+        String s = "pwwkew";
         System.out.println(solution.lengthOfLongestSubstring(s));
     }
 }
