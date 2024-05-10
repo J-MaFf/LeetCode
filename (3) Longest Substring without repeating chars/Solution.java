@@ -56,20 +56,15 @@ class Solution {
         Set<Character> set = new HashSet<Character>();
         int left = 0, right = 0, maxLength = 0;
 
-        for (int i = 0; i < s.length(); i++) {
-            right = i;
-            if (!set.add(s.charAt(right))) { // Char was not unique
-                while (left < right) {
-                    set.remove(s.charAt(left));
-                    if (!set.contains(s.charAt(right))) {
-                        set.add(s.charAt(right));
-                        break;
-                    }
-                    left++;
-                }
-            } else
+        while (left < s.length() && right < s.length()) {
+            if (!set.contains(s.charAt(right))) { // char is unique
+                set.add(s.charAt(right));
                 right++;
-            if (right - left > maxLength) { // if current len is > maxLen, update maxLen
+            } else {
+                set.remove(s.charAt(left));
+                left++;
+            }
+            if (right - left > maxLength) {
                 maxLength = right - left;
             }
         }
