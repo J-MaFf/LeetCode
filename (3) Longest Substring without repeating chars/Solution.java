@@ -56,9 +56,9 @@ class Solution {
         HashSet<Character> longest = new HashSet<>();
         String lcs = "";
         for (int i = 0; i < s.length(); i++) {
-            if (charSet.add(s.charAt(i))) // If the character is not in the hash set, add it to the hash set and the lcs
+            if (charSet.add(s.charAt(i))) { // add unique char to the hash set and the lcs
                 lcs += s.charAt(i);
-            else if (lcs.length() >= longest.size()) { // If longer subsequence found
+            } else if (lcs.length() >= longest.size()) { // If longer subsequence found
                 longest = new HashSet<>(charSet);
                 lcs = "" + s.charAt(i); // Reset lcs to the current character
                 charSet.clear();
@@ -70,6 +70,9 @@ class Solution {
             }
             System.out.printf("Current lcs on iteration %d is %s%n", i, lcs); // Print current lcs for each iteration
         }
+        if (longest.size() == 0) { // If longest was never updated (Happens when longest substring is whole string)
+            longest = new HashSet<>(charSet);
+        }
         System.out.printf("The longest substring is %s with length %d.%n", longest.toString(), longest.size());
 
         return longest.size();
@@ -77,7 +80,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String s = "pwwkew";
+        String s = "aab";
         System.out.println(solution.lengthOfLongestSubstring(s));
     }
 }
