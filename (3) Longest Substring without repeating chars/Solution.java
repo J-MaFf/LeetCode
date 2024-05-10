@@ -75,12 +75,12 @@ class Solution {
         }
         System.out.printf("The longest substring is %s with length %d.%n", longest.toString(), longest.size());
 
-        return longest.size();
+        return Math.max(longest.size(), charSet.size());
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String s = "aab";
+        String s = "dvdf";
         System.out.println(solution.lengthOfLongestSubstring(s));
     }
 }
