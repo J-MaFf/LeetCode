@@ -29,6 +29,7 @@ Constraints:
 
  */
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class provides a solution for finding the length of the longest
@@ -52,12 +53,32 @@ class Solution {
      * @return the length of the longest substring without repeating characters
      */
     public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<Character>();
+        int left = 0, right = 0, maxLength = 0;
 
+        for (int i = 0; i < s.length(); i++) {
+            right = i;
+            if (!set.add(s.charAt(right))) { // Char was not unique
+                while (left < right) {
+                    set.remove(s.charAt(left));
+                    if (!set.contains(s.charAt(right))) {
+                        set.add(s.charAt(right));
+                        break;
+                    }
+                    left++;
+                }
+            } else
+                right++;
+            if (right - left > maxLength) { // if current len is > maxLen, update maxLen
+                maxLength = right - left;
+            }
+        }
+        return maxLength;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String s = "dvdf";
+        String s = "pwwkew";
         System.out.println(solution.lengthOfLongestSubstring(s));
     }
 }
