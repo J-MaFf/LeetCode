@@ -62,9 +62,11 @@ class Solution {
                 longest = new HashSet<>(charSet);
                 lcs = "" + s.charAt(i); // Reset lcs to the current character
                 charSet.clear();
+                charSet.add(s.charAt(i));
             } else {
                 lcs = "" + s.charAt(i);
                 charSet.clear();
+                charSet.add(s.charAt(i));
             }
             System.out.printf("Current lcs on iteration %d is %s%n", i, lcs); // Print current lcs for each iteration
         }
