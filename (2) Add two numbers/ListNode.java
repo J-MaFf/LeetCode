@@ -36,7 +36,10 @@ class Solution {
             p2 = (p2 != null && p2.next != null) ? p2.next : null;
 
         }
-        return dummyHead;
+        if (carry > 0)
+            current.next = new ListNode(carry);
+
+        return dummyHead.next;
     }
 
     public static void main(String[] args) {
