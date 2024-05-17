@@ -1,4 +1,3 @@
-
 public class ListNode {
     int val;
     ListNode next;
@@ -33,10 +32,23 @@ class Solution {
             carry = sum / 10; // int division
             current.next = new ListNode(sum % 10);
             current = current.next;
-            p1 = (p1.next != null) ? p1.next : null;
-            p2 = (p2.next != null) ? p2.next : null;
+            p1 = (p1 != null && p1.next != null) ? p1.next : null;
+            p2 = (p2 != null && p2.next != null) ? p2.next : null;
 
         }
         return dummyHead;
+    }
+
+    public static void main(String[] args) {
+        // Test case 9999999 + 9999
+        ListNode l1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9,
+                new ListNode(9)))))));
+        ListNode l2 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))));
+        Solution s = new Solution();
+        ListNode result = s.addTwoNumbers(l1, l2);
+        while (result != null) {
+            System.out.print(result.val);
+            result = result.next;
+        }
     }
 }
