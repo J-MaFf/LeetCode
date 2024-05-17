@@ -40,12 +40,35 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        // Test case 9999999 + 9999
-        ListNode l1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9,
-                new ListNode(9)))))));
-        ListNode l2 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))));
+        // Test case 342 + 465
+        ListNode l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+        ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
         Solution s = new Solution();
         ListNode result = s.addTwoNumbers(l1, l2);
+        System.out.print("Result of 342 + 465: ");
+        while (result != null) {
+            System.out.print(result.val);
+            result = result.next;
+        }
+
+        // Test case 0 + 0
+        l1 = new ListNode(0);
+        l2 = new ListNode(0);
+        s = new Solution();
+        result = s.addTwoNumbers(l1, l2);
+        System.out.print("\nResult of 0 + 0: ");
+        while (result != null) {
+            System.out.print(result.val);
+            result = result.next;
+        }
+
+        // Test case 9999999 + 9999
+        l1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9,
+                new ListNode(9)))))));
+        l2 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))));
+        s = new Solution();
+        result = s.addTwoNumbers(l1, l2);
+        System.out.print("\nResult of 9999999 + 9999: ");
         while (result != null) {
             System.out.print(result.val);
             result = result.next;
