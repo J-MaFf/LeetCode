@@ -1,4 +1,3 @@
-
 public class ListNode {
     int val;
     ListNode next;
@@ -17,68 +16,65 @@ public class ListNode {
 }
 
 class Solution {
-
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode current = new ListNode(0);
-        ListNode sum = current; // sum is the head of the list
-        ListNode nextNode;
-        int digitSum;
+        ListNode dummyHead, p1, p2, current;
+        dummyHead = new ListNode();
+        current = dummyHead;
+        p1 = l1;
+        p2 = l2;
         int carry = 0;
-        ListNode reverseSum = sum;
-        while (l1 != null && l2 != null) { // While l1 and l2 have more nodes
 
-            // Numbers are in reverse
-            digitSum = l1.val + l2.val + carry;
-            carry = 0;
-            if (digitSum > 9) {
-                // Must carry over to next node
-                carry = digitSum / 10; // int devision
-                digitSum = digitSum % 10; // modulo
-            }
-            current.val = digitSum;
-            if (l1.next == null && l2.next == null) {
-                l1 = l1.next; // Advance nodes
-                l2 = l2.next;
-                break;
+        while (p1 != null || p2 != null) {
+            int val1 = (p1 != null) ? p1.val : 0;
+            int val2 = (p2 != null) ? p2.val : 0;
+            int sum = val1 + val2 + carry;
 
-            }
-            nextNode = new ListNode();
-            current.next = nextNode;
-            current = nextNode;
-            l1 = l1.next; // Advance nodes
-            l2 = l2.next;
-        }
-        while (l1 != null) {
-            addSingleNode(l1, carry, current);
+            carry = sum / 10; // int division
+            current.next = new ListNode(sum % 10);
             current = current.next;
-            l1 = l1.next;
-        }
-        while (l2 != null) {
-            addSingleNode(l2, carry, current);
-            current = current.next;
-            l2 = l2.next;
-        }
-        return reverseSum;
+            p1 = (p1 != null && p1.next != null) ? p1.next : null;
+            p2 = (p2 != null && p2.next != null) ? p2.next : null;
 
+        }
+        if (carry > 0)
+            current.next = new ListNode(carry);
+
+        return dummyHead.next;
     }
 
-    public static ListNode addSingleNode(ListNode node, int carry, ListNode current) {
-        int digitSum = node.val + carry;
-        carry = 0;
-        if (digitSum > 9) {
-            // Must carry over to next node
-            carry = digitSum / 10; // int devision
-            digitSum = digitSum % 10; // modulo
+    public static void main(String[] args) {
+        // Test case 342 + 465
+        ListNode l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+        ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+        Solution s = new Solution();
+        ListNode result = s.addTwoNumbers(l1, l2);
+        System.out.print("Result of 342 + 465: ");
+        while (result != null) {
+            System.out.print(result.val);
+            result = result.next;
         }
-        current.val = digitSum;
-        if (node.next == null) {
-            if (carry > 0) {
-                current.next = new ListNode(carry);
-            }
-            return current;
-        }
-        current.next = new ListNode();
-        return current.next;
-    }
 
+        // Test case 0 + 0
+        l1 = new ListNode(0);
+        l2 = new ListNode(0);
+        s = new Solution();
+        result = s.addTwoNumbers(l1, l2);
+        System.out.print("\nResult of 0 + 0: ");
+        while (result != null) {
+            System.out.print(result.val);
+            result = result.next;
+        }
+
+        // Test case 9999999 + 9999
+        l1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9,
+                new ListNode(9)))))));
+        l2 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))));
+        s = new Solution();
+        result = s.addTwoNumbers(l1, l2);
+        System.out.print("\nResult of 9999999 + 9999: ");
+        while (result != null) {
+            System.out.print(result.val);
+            result = result.next;
+        }
+    }
 }
