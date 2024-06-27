@@ -37,10 +37,16 @@ class Solution {
             partitionB = (m + n + 1) / 2 - partitionA;
 
             if (maxLeftA <= minRightB && maxLeftB <= minRightA) { // correct partitioning
+                int answer = 0;
                 if ((m + n) % 2 == 0) { // Even
-
+                    // The median value is the average of the maximum value of
+                    // the smaller half and the minimum value of the larger half
+                    answer = (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2;
+                } else { // Odd
+                    // the median value is the maximum value of the smaller half
+                    answer = Math.max(maxLeftA, maxLeftB);
                 }
-
+                return answer;
             }
         }
     }
