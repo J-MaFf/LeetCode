@@ -11,6 +11,14 @@ class Solution {
         if (m > n) {
             findMedianSortedArrays(nums2, nums1);
         }
+        // Define search space
+        int left = 0;
+        int right = m;
 
+        while (left <= right) {
+            // Compute partition indicies
+            int partitionA = (left + right) / 2;
+            int partitionB = (m + n + 1) / 2 - partitionA;
+        }
     }
 }
