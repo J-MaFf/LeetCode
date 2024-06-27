@@ -19,6 +19,29 @@ class Solution {
             // Compute partition indicies
             int partitionA = (left + right) / 2;
             int partitionB = (m + n + 1) / 2 - partitionA;
+
+            // Obtain edge elements
+            int maxLeftA = (partitionA - 1 < 0) ? Integer.MIN_VALUE : nums1[partitionA - 1];
+            int minRightA = (partitionA >= m) ? Integer.MAX_VALUE : nums1[partitionA];
+            int maxLeftB = (partitionB - 1 < 0) ? Integer.MIN_VALUE : nums2[partitionB - 1];
+            int minRightB = (partitionB >= n) ? Integer.MAX_VALUE : nums2[partitionB];
+
+            // Compare and recalculate
+            if (maxLeftA > minRightB) { // maxLeftA is too large to be in the smaller half
+                right = partitionA - 1; // move to the left half of the search space
+            }
+            if (maxLeftB > minRightA) { // too far on the left side for partitionA
+                left = partitionA + 1; // go to the right half of the search space
+            }
+            partitionA = (left + right) / 2;
+            partitionB = (m + n + 1) / 2 - partitionA;
+
+            if (maxLeftA <= minRightB && maxLeftB <= minRightA) { // correct partitioning
+                if ((m + n) % 2 == 0) { // Even
+
+                }
+
+            }
         }
     }
 }
