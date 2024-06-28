@@ -2,6 +2,33 @@
 
 class Solution {
     public String longestPalindrome(String s) {
+        // I plan to use the sliding window aproach
 
+        int left = 0, right = 0;
+        String palindrome = "";
+
+        while (right < s.length()) {
+            String currentSubstring = s.substring(left, right);
+
+        }
+    }
+
+    /**
+     * This function checks if a string is a palindrome
+     * 
+     * @param s the string to check
+     * @return true if the string is a palindrome, false otherwise
+     */
+    public boolean isPalindrome(String s) {
+        int left = 0, right = s.length() - 1;
+        while (right - left > 0) {
+            if (s.charAt(left) != s.charAt(right))
+                return false;
+            else {
+                left++;
+                right--;
+            }
+        }
+        return true;
     }
 }
