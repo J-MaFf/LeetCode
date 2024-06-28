@@ -4,13 +4,25 @@ class Solution {
     public String longestPalindrome(String s) {
         // I plan to use the sliding window aproach
 
-        int left = 0, right = 0;
+        int left, right;
         String palindrome = "";
-
-        while (right < s.length()) {
-            String currentSubstring = s.substring(left, right);
-
+        String currentSubstring = "";
+        for (int i = 0; i < s.length(); i++) {
+            left = right = i;
+            currentSubstring = s.substring(left, right);
+            while (isPalindrome(currentSubstring)) {
+                if (currentSubstring.length() > palindrome.length())
+                    palindrome = currentSubstring;
+                if (left > 0)
+                    left--;
+                if (right < s.length() - 1)
+                    right++;
+                // Update current substring
+                currentSubstring = s.substring(left, right);
+            }
         }
+        return palindrome;
+
     }
 
     /**
