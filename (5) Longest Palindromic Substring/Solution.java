@@ -9,7 +9,7 @@ class Solution {
         String currentSubstring = "";
         for (int i = 0; i < s.length(); i++) {
 
-            currentSubstring = s.substring(left, right + 1);
+            currentSubstring = s.substring(left, right);
             while (isPalindrome(currentSubstring)) {
                 if (currentSubstring.length() > palindrome.length())
                     palindrome = currentSubstring;
@@ -20,6 +20,7 @@ class Solution {
                 // Update current substring
                 currentSubstring = s.substring(left, right);
             }
+            left++;
         }
         return palindrome;
 
