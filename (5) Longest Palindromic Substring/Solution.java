@@ -7,6 +7,10 @@ class Solution {
         int left = 0, right = 0;
         String palindrome = "";
         String currentSubstring = "";
+
+        if (s.length() == 1)
+            return s;
+
         for (int i = 0; i < s.length(); i++) {
 
             currentSubstring = s.substring(left, right);
@@ -15,8 +19,13 @@ class Solution {
                     palindrome = currentSubstring;
                 if (left > 0)
                     left--;
-                if (right < s.length() - 1)
+                if (right <= s.length() - 1)
                     right++;
+                else {
+                    currentSubstring = s.substring(left, right);
+                    break;
+                }
+
                 // Update current substring
                 currentSubstring = s.substring(left, right);
             }
