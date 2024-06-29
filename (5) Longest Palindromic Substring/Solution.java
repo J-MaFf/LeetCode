@@ -5,6 +5,7 @@ class Solution {
         // I plan to use the sliding window aproach
 
         int left = 0, right = 0;
+        int l = 0, r = 0;
         String palindrome = "";
         String currentSubstring = "";
 
@@ -14,22 +15,28 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
 
             currentSubstring = s.substring(left, right);
+
             while (isPalindrome(currentSubstring)) {
                 if (currentSubstring.length() > palindrome.length())
                     palindrome = currentSubstring;
-                if (left > 0)
+                if (left > 0) {
                     left--;
-                if (right <= s.length() - 1)
-                    right++;
-                else {
-                    currentSubstring = s.substring(left, right);
-                    break;
+                    l++;
                 }
+                if (right <= s.length() - 1) {
+                    right++;
+                    r++;
+                } else
+                    break;
 
-                // Update current substring
-                currentSubstring = s.substring(left, right);
             }
-            left++;
+            // Update current substring
+            left += l + 1;
+            right -= r - 1;
+            currentSubstring = s.substring(left, right);
+
+            l = 0;
+            r = 0;
         }
         return palindrome;
 
