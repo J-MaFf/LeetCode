@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "LeetCode",
+  "project_id": "573b49df-3af4-4cef-9acd-f1d6115f3d15"
+}
